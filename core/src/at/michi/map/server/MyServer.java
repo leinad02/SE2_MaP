@@ -8,7 +8,7 @@ import at.michi.map.networkClasses.LoginResponse;
 import java.io.IOException;
 
 /**
- * Created by Michi on 07.04.2017.
+ * Created by Michi on 08.04.2017.
  */
 
 public class MyServer {
