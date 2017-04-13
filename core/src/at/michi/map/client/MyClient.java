@@ -3,8 +3,8 @@ package at.michi.map.client;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import java.io.IOException;
-import com.mygdx.game.NetworkClasses.LoginRequest;
-import com.mygdx.game.NetworkClasses.LoginResponse;
+import at.michi.map.networkClasses.LoginRequest;
+import at.michi.map.networkClasses.LoginResponse;
 
 /**
  * Created by Michi on 07.04.2017.

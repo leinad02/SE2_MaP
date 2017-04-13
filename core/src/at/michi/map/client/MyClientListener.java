@@ -2,11 +2,11 @@ package at.michi.map.client;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import at.michi.map.NetworkClasses.LoginRequest;
-import at.michi.map.NetworkClasses.LoginResponse;
+import at.michi.map.networkClasses.LoginRequest;
+import at.michi.map.networkClasses.LoginResponse;
 
 /**
- * Created by micha on 13.04.2017.
+ * Created by Michi on 07.04.2017.
  */
 
 public class MyClientListener extends Listener {
