@@ -3,6 +3,8 @@ package at.michi.map.client;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import java.io.IOException;
+
+import at.michi.map.networkClasses.ClientRegister;
 import at.michi.map.networkClasses.LoginRequest;
 import at.michi.map.networkClasses.LoginResponse;
 
@@ -31,7 +33,7 @@ public class MyClient {
             client.connect(TIMEOUT, serverIp, TCP_PORT, UDP_PORT);
             client.addListener(new MyClientListener());
             LoginRequest req = new LoginRequest();
-            req.setMessageText("Ich möchte mich verbinden!");
+            req.setMessageText("verbunden");
             client.sendTCP(req);
 
         } catch (IOException e) {
@@ -47,5 +49,6 @@ public class MyClient {
     private void registerKryoClasses(){
         kryo.register(LoginRequest.class);
         kryo.register(LoginResponse.class);
+        kryo.register(ClientRegister.class);
     }
 }

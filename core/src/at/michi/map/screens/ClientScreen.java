@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.Align;
 
 import at.michi.map.GameConstants;
 import at.michi.map.Main;
+import at.michi.map.client.MyClient;
 
 /**
  * Created by SW on 14.04.2017.
@@ -27,7 +28,7 @@ public class ClientScreen implements Screen {
     final Main game;
     private Skin mySkin;
     private Stage stage;
-    //MyClient client;  @Michael, schon mal eine Verbindung zu deinem Client vorbereitet
+    MyClient client;  //@Michael, schon mal eine Verbindung zu deinem Client vorbereitet
 
     public ClientScreen(final Main game){
         this.game = game;
@@ -63,11 +64,11 @@ public class ClientScreen implements Screen {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 
                 /* @Michael: wie besprochen hier eine Vorbereitung für deinen Client,
-                    bitte ersetze X und Y noch durch deinen gewählten UDP und TCP Port
-                client = new MyClient(X,Y, 5000);
+                    bitte ersetze X und Y noch durch deinen gewählten UDP und TCP Port*/
+                //Ports hinzugefügt von Michi
+                client = new MyClient(55555, 55556, 5000);
                 client.connect(ipfield.getText());
                 game.gotoGameScreen();
-                */
                 return true;
             }
 

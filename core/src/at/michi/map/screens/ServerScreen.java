@@ -56,7 +56,7 @@ public class ServerScreen implements Screen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 server = new MyServer(55555, 55556);
-                server.startServer();
+                server.startServer(game);
                 game.gotoGameScreen();
                 return true;
             }
