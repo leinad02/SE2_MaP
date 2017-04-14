@@ -13,7 +13,7 @@ import at.michi.map.screens.GameScreen;
 import at.michi.map.screens.MenuScreen;
 
 /**
- * Created by SW on 14.04.2017.
+ * Created by Michi on 07.04.17.
  */
 
 /*

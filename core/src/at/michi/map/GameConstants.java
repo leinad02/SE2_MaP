@@ -3,7 +3,7 @@ package at.michi.map;
 import com.badlogic.gdx.Gdx;
 
 /**
- * Created by SW on 14.04.2017.
+ * Created by Michi on 06.04.17.
  */
 
 /*
