@@ -55,7 +55,7 @@ public class MenuScreen implements Screen{
             //Beim Drücken des Buttons geht es zum ServerScreen, @Jasmin, das habe ich hier schonmal für dich vorbereitet
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                // game.gotoServerScreen();
+                game.gotoServerScreen();
                 return true;
             }
 

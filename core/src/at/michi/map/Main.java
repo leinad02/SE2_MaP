@@ -34,7 +34,6 @@ Orthographische Kamera wird in 2D-Umgebungen verwendet mit dieser kann man sich 
 public class Main extends Game {
 
 	private SpriteBatch batch;
-  
 	public Viewport screenPort;
 	public MyAssetManager myAssetManager = new MyAssetManager();
 
@@ -42,7 +41,6 @@ public class Main extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-    /
 		OrthographicCamera camera = new OrthographicCamera();
 		camera.setToOrtho(false);
 		screenPort = new ScreenViewport();
