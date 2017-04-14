@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
  * Created by Michi on 06.04.17.
  */
 
+
 /*
 * Klasse, die den Zugriff auf die Koordinaten des Spiels vereinfachen soll
 * Sie berechnet automatisch die Breite und Höhe des Screens, zudem die Mitte des Screens
