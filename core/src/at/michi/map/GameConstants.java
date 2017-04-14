@@ -5,6 +5,15 @@ import com.badlogic.gdx.Gdx;
 /**
  * Created by Michi on 06.04.17.
  */
+
+
+/*
+* Klasse, die den Zugriff auf die Koordinaten des Spiels vereinfachen soll
+* Sie berechnet automatisch die Breite und Höhe des Screens, zudem die Mitte des Screens
+* und die Höhe und Breite der Zeilen und Spalten
+* @Daniel, Engin: das könnt ihr dann für euren Player und das Spielbrett nutzen,
+* damit die Darstellung unabhängig vom Device ist*/
+
 public class GameConstants {
     public static final String skin = "skin/glassy-ui.json";
     public static final String skinAtlas = "skin/glassy-ui.atlas";
