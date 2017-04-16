@@ -16,6 +16,10 @@ import com.badlogic.gdx.utils.Align;
 import at.michi.map.GameConstants;
 import at.michi.map.Main;
 import at.michi.map.client.MyClient;
+import de.tomgrill.gdxdialogs.core.GDXDialogs;
+import de.tomgrill.gdxdialogs.core.GDXDialogsSystem;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXButtonDialog;
+import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
 
 /**
  * Created by SW on 14.04.2017.
@@ -29,6 +33,7 @@ public class ClientScreen implements Screen {
     private Skin mySkin;
     private Stage stage;
     MyClient client;  //@Michael, schon mal eine Verbindung zu deinem Client vorbereitet
+    GDXDialogs dialogs = GDXDialogsSystem.install();
 
     public ClientScreen(final Main game){
         this.game = game;
@@ -51,6 +56,19 @@ public class ClientScreen implements Screen {
         ipfield.setPosition(GameConstants.centerX - ipfield.getWidth()/2,GameConstants.centerY);
         stage.addActor(ipfield);
 
+        final GDXButtonDialog bDialog = dialogs.newDialog(GDXButtonDialog.class);
+        bDialog.setTitle("Error");
+        bDialog.setMessage("Sie müssen eine IP-Adresse eingeben!");
+
+        bDialog.setClickListener(new ButtonClickListener() {
+
+            @Override
+            public void click(int button) {
+            }
+        });
+
+        bDialog.addButton("OK");
+
         Button connectBtn = new TextButton("Connect",mySkin, "default");
         connectBtn.setSize(GameConstants.col_width,GameConstants.row_height);
         connectBtn.setPosition(GameConstants.centerX - connectBtn.getWidth()/2,GameConstants.centerY/2.5f + GameConstants.row_height);
@@ -62,7 +80,10 @@ public class ClientScreen implements Screen {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
+                if(ipfield.getText().isEmpty()){
+                    bDialog.build().show();
+                    return true;
+                }
                 /* @Michael: wie besprochen hier eine Vorbereitung für deinen Client,
                     bitte ersetze X und Y noch durch deinen gewählten UDP und TCP Port*/
                 //Ports hinzugefügt von Michi

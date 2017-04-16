@@ -15,6 +15,9 @@ import com.badlogic.gdx.utils.Align;
 import at.michi.map.GameConstants;
 import at.michi.map.Main;
 import at.michi.map.server.MyServer;
+import de.tomgrill.gdxdialogs.core.GDXDialogs;
+import de.tomgrill.gdxdialogs.core.GDXDialogsSystem;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXProgressDialog;
 
 /**
  * Created by Jasmin on 09.04.17.
@@ -26,12 +29,18 @@ public class ServerScreen implements Screen {
     private Skin mySkin;
     MyServer server;
     private TextField textservername;
+    GDXDialogs dialogs = GDXDialogsSystem.install();
+    GDXProgressDialog progressDialog;
 
     public ServerScreen(final Main game){
         this.game = game;
         stage = new Stage(game.screenPort);
         mySkin = new Skin(Gdx.files.internal(GameConstants.skin));
         Gdx.input.setInputProcessor(stage);
+
+        progressDialog = dialogs.newDialog(GDXProgressDialog.class);
+        progressDialog.setTitle("Laden");
+        progressDialog.setMessage("Bitte warten bis der Gegner beigetreten ist...");
 
         //Jasmin
         Label LnameServer = new Label("Bitte Namen eingeben:",mySkin,"big");
@@ -56,8 +65,20 @@ public class ServerScreen implements Screen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 server = new MyServer(55555, 55556);
-                server.startServer(game);
-                game.gotoGameScreen();
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.build().show();
+                    }
+                });
+
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        server.startServer(game);
+                        progressDialog.dismiss();
+                    }
+                });
                 return true;
             }
 
