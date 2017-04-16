@@ -8,8 +8,10 @@ import at.michi.map.Main;
 import at.michi.map.networkClasses.ClientName;
 import at.michi.map.networkClasses.ClientRegister;
 import at.michi.map.networkClasses.ForClient;
+import at.michi.map.networkClasses.ForServer;
 import at.michi.map.networkClasses.LoginRequest;
 import at.michi.map.networkClasses.LoginResponse;
+import at.michi.map.networkClasses.ServerName;
 
 /**
  * Created by Michi on 07.04.2017.
@@ -51,7 +53,7 @@ public class MyClient {
         while(forClient.getName() == null){
             System.out.println("Bitte warten");
         }
-        //game.gotoGameScreen(myClient, forClient.getName(), name);
+        game.gotoGameScreen(myClient, forClient.getName(), name);
 
     }
 
@@ -63,5 +65,9 @@ public class MyClient {
         kryo.register(LoginRequest.class);
         kryo.register(LoginResponse.class);
         kryo.register(ClientRegister.class);
+        kryo.register(ClientName.class);
+        kryo.register(ServerName.class);
+        kryo.register(ForServer.class);
+        kryo.register(ForClient.class);
     }
 }

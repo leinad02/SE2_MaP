@@ -3,7 +3,9 @@ package at.michi.map.server;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
+import at.michi.map.networkClasses.ClientName;
 import at.michi.map.networkClasses.ClientRegister;
+import at.michi.map.networkClasses.ForServer;
 import at.michi.map.networkClasses.LoginRequest;
 import at.michi.map.networkClasses.LoginResponse;
 
@@ -14,24 +16,32 @@ import at.michi.map.networkClasses.LoginResponse;
 public class MyServerListener extends Listener {
     String connText = "verbunden";
     ClientRegister clientRegister;
+    String name;
+    ForServer forServer;
 
-    public MyServerListener(ClientRegister clientRegister) {
+    public MyServerListener(ClientRegister clientRegister, String name, ForServer forServer) {
         this.clientRegister = clientRegister;
+        this.name = name;
+        this.forServer = forServer;
     }
 
     @Override
     public void received(Connection connection, Object object){
-        /*LoginResponse response = new LoginResponse();
-        response.setResponseText("Hallo wer bist du?");
-        connection.sendTCP(response);*/
-        if(object instanceof LoginRequest){
+        if(object instanceof ClientName){
+            ClientName clientname = (ClientName) object;
+            this.forServer.setName(clientname.getNameFromClient());
+        } else if(object instanceof LoginRequest){
             LoginRequest request = (LoginRequest) object;
             if(request.getMessageText().matches(connText)){
-                System.out.println("Juchuuuu");
+                System.out.println("Juchuuuu: " + clientRegister.isLogin());
                 this.clientRegister.setLogin(true);
                 connection.sendTCP(this.clientRegister);
+            } else {
+                System.out.println(request.getMessageText());
+                LoginResponse response = new LoginResponse();
+                response.setResponseText("Super!!!");
+                connection.sendTCP(response);
             }
-
         }
     }
 

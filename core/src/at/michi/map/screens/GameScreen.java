@@ -25,7 +25,7 @@ public class GameScreen implements Screen {
     private Stage stage;
     private Skin mySkin;
 
-    public GameScreen(final Main game){
+    public GameScreen(final Main game, Object object, String servername, String clientname){
         this.game = game;
         stage = new Stage(game.screenPort);
         mySkin = new Skin(Gdx.files.internal(GameConstants.skin));

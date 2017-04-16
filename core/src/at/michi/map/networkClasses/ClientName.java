@@ -1,7 +1,7 @@
 package at.michi.map.networkClasses;
 
 /**
- * Created by micha on 16.04.2017.
+ * Created by Michi on 16.04.2017.
  */
 
 public class ClientName {
