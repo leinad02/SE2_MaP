@@ -70,4 +70,10 @@ public class MyClient {
         kryo.register(ForServer.class);
         kryo.register(ForClient.class);
     }
+
+    public void sendWelcomeMessage() {
+        LoginRequest req = new LoginRequest();
+        req.setMessageText("Wir spielen jetzt zusammen");
+        client.sendTCP(req);
+    }
 }
