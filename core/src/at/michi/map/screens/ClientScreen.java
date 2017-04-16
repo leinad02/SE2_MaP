@@ -83,7 +83,7 @@ public class ClientScreen implements Screen {
 
         Button connectBtn = new TextButton("Connect",mySkin, "default");
         connectBtn.setSize(GameConstants.col_width,GameConstants.row_height);
-        connectBtn.setPosition(GameConstants.centerX - connectBtn.getWidth()/2,GameConstants.centerY/2.5f + GameConstants.row_height);
+        connectBtn.setPosition(GameConstants.centerX - ipfield.getWidth()/3.7f,GameConstants.centerY/4.3f + GameConstants.row_height/2.8f);
         connectBtn.addListener(new InputListener(){
 
             /*Button Connect: hier wird ein Client erstellt und die Verbindungsmethode
