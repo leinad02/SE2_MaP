@@ -4,6 +4,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
 import at.michi.map.networkClasses.ClientRegister;
+import at.michi.map.networkClasses.ForClient;
 import at.michi.map.networkClasses.LoginRequest;
 import at.michi.map.networkClasses.LoginResponse;
 
@@ -12,6 +13,11 @@ import at.michi.map.networkClasses.LoginResponse;
  */
 
 public class MyClientListener extends Listener {
+    ForClient forClient;
+
+    public MyClientListener(ForClient forClient) {
+        this.forClient = forClient;
+    }
 
     /*@Override
     public void connected(Connection connection){
@@ -29,6 +35,9 @@ public class MyClientListener extends Listener {
         } else if(object instanceof ClientRegister){
             ClientRegister clientRegister = (ClientRegister) object;
             System.out.println(clientRegister.isLogin());
-        }
+        } /*else if(object instanceof ServerName){
+            ServerName serverName = (ServerName) object;
+            this.forClient.setName(serverName.getNameFromServer());
+        }*/
     }
 }

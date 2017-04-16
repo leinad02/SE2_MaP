@@ -100,8 +100,7 @@ public class ClientScreen implements Screen {
                     bitte ersetze X und Y noch durch deinen gewählten UDP und TCP Port*/
                 //Ports hinzugefügt von Michi
                 client = new MyClient(55555, 55556, 5000);
-                client.connect(ipfield.getText());
-                game.gotoGameScreen();
+                client.connect(client, game, ipfield.getText(), textclientname.getText());
                 return true;
             }
 
