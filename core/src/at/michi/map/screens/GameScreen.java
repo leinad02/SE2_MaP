@@ -3,14 +3,21 @@ package at.michi.map.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 
 import at.michi.map.GameConstants;
 import at.michi.map.Main;
+import at.michi.map.client.MyClient;
+import at.michi.map.server.MyServer;
 
 /**
  * Created by SW on 14.04.2017.
@@ -25,7 +32,7 @@ public class GameScreen implements Screen {
     private Stage stage;
     private Skin mySkin;
 
-    public GameScreen(final Main game){
+    public GameScreen(final Main game, Object object, String servername, String clientname){
         this.game = game;
         stage = new Stage(game.screenPort);
         mySkin = new Skin(Gdx.files.internal(GameConstants.skin));
@@ -36,8 +43,78 @@ public class GameScreen implements Screen {
         netTitle.setSize(GameConstants.col_width*2,GameConstants.row_height*2);
         netTitle.setPosition(GameConstants.centerX - netTitle.getWidth()/2,GameConstants.centerY + GameConstants.row_height);
         netTitle.setAlignment(Align.center);
-
         stage.addActor(netTitle);
+
+        Button serverClose = new TextButton("Server schliessen",mySkin,"default");
+        serverClose.setSize(GameConstants.col_width*2.2f,GameConstants.row_height);
+        serverClose.setPosition(GameConstants.centerX - serverClose.getWidth()/2,GameConstants.centerY);
+
+        Button clientClose = new TextButton("Disconnect",mySkin,"default");
+        clientClose.setSize(GameConstants.col_width*2,GameConstants.row_height);
+        clientClose.setPosition(GameConstants.centerX - clientClose.getWidth()/2,GameConstants.centerY);
+
+        Label playerOne = new Label("Player 1:",mySkin,"big");
+        playerOne.setSize(GameConstants.col_width*2,GameConstants.row_height*2);
+        playerOne.setPosition(GameConstants.centerX - playerOne.getWidth()*2,GameConstants.centerY + GameConstants.row_height*1.5f);
+        playerOne.setAlignment(Align.center);
+        playerOne.setColor(Color.RED);
+        stage.addActor(playerOne);
+
+        Label namePlayerServer = new Label(servername,mySkin,"big");
+        namePlayerServer.setSize(GameConstants.col_width*2,GameConstants.row_height*2);
+        namePlayerServer.setPosition(GameConstants.centerX - namePlayerServer.getWidth()*2,GameConstants.centerY + GameConstants.row_height);
+        namePlayerServer.setAlignment(Align.center);
+
+        Label playerTwo = new Label("Player 2:",mySkin,"big");
+        playerTwo.setSize(GameConstants.col_width*2,GameConstants.row_height*2);
+        playerTwo.setPosition(GameConstants.centerX*2 - playerTwo.getWidth(),GameConstants.centerY + GameConstants.row_height*1.5f);
+        playerTwo.setAlignment(Align.center);
+        playerTwo.setColor(Color.RED);
+        stage.addActor(playerTwo);
+
+        Label namePlayerClient = new Label(clientname,mySkin,"big");
+        namePlayerClient.setSize(GameConstants.col_width*2,GameConstants.row_height*2);
+        namePlayerClient.setPosition(GameConstants.centerX*2 - namePlayerClient.getWidth(),GameConstants.centerY + GameConstants.row_height);
+        namePlayerClient.setAlignment(Align.center);
+
+        if(object instanceof MyServer){
+            final MyServer server = (MyServer) object;
+            serverClose.addListener(new InputListener(){
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    server.stopServer();
+                    return true;
+                }
+
+                @Override
+                public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                    super.touchUp(event, x, y, pointer, button);
+                }
+            });
+            stage.addActor(serverClose);
+
+
+        } else if(object instanceof MyClient){
+            final MyClient client = (MyClient) object;
+            client.sendWelcomeMessage();
+            clientClose.addListener(new InputListener(){
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    client.disconnect();
+                    return true;
+                }
+
+                @Override
+                public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                    super.touchUp(event, x, y, pointer, button);
+                }
+            });
+            stage.addActor(clientClose);
+        }
+
+        stage.addActor(namePlayerServer);
+        stage.addActor(namePlayerClient);
+
     }
 
     @Override

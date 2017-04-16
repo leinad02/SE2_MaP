@@ -62,8 +62,8 @@ public class Main extends Game {
 		setScreen(serverScreen);
 	}
 
-	public void gotoGameScreen(){
-		GameScreen gameScreen = new GameScreen(this);
+	public void gotoGameScreen(Object object, String servername, String clientname){
+		GameScreen gameScreen = new GameScreen(this, object, servername, clientname);
 		setScreen(gameScreen);
 	}
 

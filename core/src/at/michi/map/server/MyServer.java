@@ -4,9 +4,13 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Server;
 
 import at.michi.map.Main;
+import at.michi.map.networkClasses.ClientName;
 import at.michi.map.networkClasses.ClientRegister;
+import at.michi.map.networkClasses.ForClient;
+import at.michi.map.networkClasses.ForServer;
 import at.michi.map.networkClasses.LoginRequest;
 import at.michi.map.networkClasses.LoginResponse;
+import at.michi.map.networkClasses.ServerName;
 
 import java.io.IOException;
 
@@ -19,6 +23,7 @@ public class MyServer {
     private Server server;
     private Kryo kryo;
     ClientRegister clientRegister;
+    ForServer forServer;
 
     public MyServer(int tcp, int udp){
         this.TCP_PORT = tcp;
@@ -26,24 +31,27 @@ public class MyServer {
 
         server = new Server();
         clientRegister = new ClientRegister();
+        forServer = new ForServer();
         kryo = server.getKryo();
         registerKryoClasses();
     }
 
-    public void startServer(final Main game){
+    public void startServer(MyServer myServer, final Main game, String name){
         server.start();
         try {
             server.bind(TCP_PORT, UDP_PORT);
-            MyServerListener listener = new MyServerListener(clientRegister);
+            MyServerListener listener = new MyServerListener(clientRegister, name, forServer);
             server.addListener(listener);
             while(!clientRegister.isLogin()){
-                game.gotoServerScreen();
                 System.out.println(clientRegister.isLogin());
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        game.gotoGameScreen();
+        ServerName serverName = new ServerName();
+        serverName.setNameFromServer(name);
+        server.sendToAllTCP(serverName);
+        game.gotoGameScreen(myServer, name, forServer.getName());
     }
 
 
@@ -55,5 +63,9 @@ public class MyServer {
         kryo.register(LoginRequest.class);
         kryo.register(LoginResponse.class);
         kryo.register(ClientRegister.class);
+        kryo.register(ClientName.class);
+        kryo.register(ServerName.class);
+        kryo.register(ForServer.class);
+        kryo.register(ForClient.class);
     }
 }

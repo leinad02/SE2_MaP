@@ -1,7 +1,7 @@
 package at.michi.map.networkClasses;
 
 /**
- * Created by micha on 14.04.2017.
+ * Created by Michi on 14.04.2017.
  */
 
 public class ClientRegister {
