@@ -17,7 +17,9 @@ import at.michi.map.Main;
 import at.michi.map.server.MyServer;
 import de.tomgrill.gdxdialogs.core.GDXDialogs;
 import de.tomgrill.gdxdialogs.core.GDXDialogsSystem;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXButtonDialog;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXProgressDialog;
+import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
 
 /**
  * Created by Jasmin on 09.04.17.
@@ -56,6 +58,19 @@ public class ServerScreen implements Screen {
         stage.addActor(textservername);
         stage.addActor(LnameServer);
 
+        final GDXButtonDialog bDialogName = dialogs.newDialog(GDXButtonDialog.class);
+        bDialogName.setTitle("Error");
+        bDialogName.setMessage("Sie müssen einen Namen eingeben!");
+
+        bDialogName.setClickListener(new ButtonClickListener() {
+
+            @Override
+            public void click(int button) {
+            }
+        });
+
+        bDialogName.addButton("OK");
+
         //
 
         Button createServer = new TextButton("Create Server",mySkin,"default");
@@ -64,6 +79,10 @@ public class ServerScreen implements Screen {
         createServer.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if(textservername.getText().isEmpty()){
+                    bDialogName.build().show();
+                    return true;
+                }
                 server = new MyServer(55555, 55556);
                 Gdx.app.postRunnable(new Runnable() {
                     @Override
