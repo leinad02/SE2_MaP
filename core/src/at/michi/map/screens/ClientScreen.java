@@ -54,6 +54,19 @@ public class ClientScreen implements Screen {
         stage.addActor(textclientname);
         stage.addActor(LnameClient);
 
+        final GDXButtonDialog bDialogName = dialogs.newDialog(GDXButtonDialog.class);
+        bDialogName.setTitle("Error");
+        bDialogName.setMessage("Sie müssen einen Namen eingeben!");
+
+        bDialogName.setClickListener(new ButtonClickListener() {
+
+            @Override
+            public void click(int button) {
+            }
+        });
+
+        bDialogName.addButton("OK");
+
         //Überschrift bzw. Aufforderung und deren Positionierung
         final Label ipTitle = new Label("Bitte geben Sie hier die IP-Adresse des Hosts ein:",mySkin, "big");
         ipTitle.setSize(GameConstants.col_width*2,GameConstants.row_height*2);
@@ -68,18 +81,18 @@ public class ClientScreen implements Screen {
         ipfield.setPosition(GameConstants.centerX - ipfield.getWidth()/2,GameConstants.centerY/2.1f + GameConstants.row_height/2);
         stage.addActor(ipfield);
 
-        final GDXButtonDialog bDialog = dialogs.newDialog(GDXButtonDialog.class);
-        bDialog.setTitle("Error");
-        bDialog.setMessage("Sie müssen eine IP-Adresse eingeben!");
+        final GDXButtonDialog bDialogIP = dialogs.newDialog(GDXButtonDialog.class);
+        bDialogIP.setTitle("Error");
+        bDialogIP.setMessage("Sie müssen eine IP-Adresse eingeben!");
 
-        bDialog.setClickListener(new ButtonClickListener() {
+        bDialogIP.setClickListener(new ButtonClickListener() {
 
             @Override
             public void click(int button) {
             }
         });
 
-        bDialog.addButton("OK");
+        bDialogIP.addButton("OK");
 
         Button connectBtn = new TextButton("Connect",mySkin, "default");
         connectBtn.setSize(GameConstants.col_width,GameConstants.row_height);
@@ -92,8 +105,11 @@ public class ClientScreen implements Screen {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(ipfield.getText().isEmpty()){
-                    bDialog.build().show();
+                if(textclientname.getText().isEmpty()){
+                    bDialogName.build().show();
+                    return true;
+                } else if(ipfield.getText().isEmpty()){
+                    bDialogIP.build().show();
                     return true;
                 }
                 /* @Michael: wie besprochen hier eine Vorbereitung für deinen Client,
