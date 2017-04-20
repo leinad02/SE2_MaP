@@ -52,8 +52,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		sBatch.begin();
 		timePassed += Gdx.graphics.getDeltaTime();
-		//true ist die Loop für die Animation
-		sBatch.draw((TextureRegion) animation.getKeyFrame(timePassed,true),100,200);
+		//true ist die Loop für die Animation 500 = x-Koordinate, 200 = y-Koordinate
+		sBatch.draw((TextureRegion) animation.getKeyFrame(timePassed,true),500,200);
 		sBatch.end();
 	}
 	
