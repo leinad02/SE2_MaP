@@ -7,10 +7,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class MyGdxGame extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+	//SpriteBatch batch;
+	//Texture img;
 
 	private SpriteBatch sBatch;
 	private TextureAtlas portalAtlas;
@@ -21,13 +22,22 @@ public class MyGdxGame extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
+		//batch = new SpriteBatch();
 		//img = new Texture("badlogic.jpg");
 		sBatch = new SpriteBatch();
-		portalAtlas = new TextureAtlas(Gdx.files.internal("Portal.atlas"));
+		portalAtlas = new TextureAtlas(Gdx.files.internal("portalsAtlas.atlas"));
 		//angeben wie viele und was für Bilder in einer Sekunde gezeigt werden sollen und wo "getRegions()"
-		animation = new Animation(1/30f,portalAtlas.getRegions());
+		animation = new Animation(1/5f,portalAtlas.getRegions());
 	}
+
+	@Override
+	public void dispose () {
+		//batch.dispose();
+		//img.dispose();
+		sBatch.dispose();
+		portalAtlas.dispose();
+	}
+
 
 	@Override
 	public void render () {
@@ -36,20 +46,16 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch.begin();
 		batch.draw(img, 0, 0);
 		batch.end();*/
+
 		Gdx.gl.glClearColor(1,1,1,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		sBatch.begin();
 		timePassed += Gdx.graphics.getDeltaTime();
-		sBatch.draw((Texture) animation.getKeyFrame(timePassed, true),300, 0);
+		//true ist die Loop für die Animation
+		sBatch.draw((TextureRegion) animation.getKeyFrame(timePassed,true),100,200);
 		sBatch.end();
 	}
 	
-	@Override
-	public void dispose () {
-		batch.dispose();
-		//img.dispose();
-		sBatch.dispose();
-		portalAtlas.dispose();
-	}
+
 }
