@@ -10,10 +10,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Align;
+
+import java.util.Random;
 
 import at.michi.map.GameConstants;
 import at.michi.map.Main;
+
+import static java.lang.String.valueOf;
 
 /**
  * Created by Jasmin on 20.04.2017.
@@ -25,6 +30,10 @@ public class EventfieldScreen implements Screen {
     final Main game;
     private Stage stage;
     private Skin mySkin;
+    Random random = new Random();
+    int number = (random.nextInt(10) + 1);
+    //Randomzahl zwischen 1 und 10
+    String num = valueOf(number);
 
     public EventfieldScreen(final Main game){
         this.game = game;
@@ -39,14 +48,30 @@ public class EventfieldScreen implements Screen {
 
         stage.addActor(QuestionEvent);
 
+        //man muss entscheiden, ob gerade oder ungerade Zahl
+        Label RolltheDice = new Label(num,mySkin,"big");
+        RolltheDice.setSize(GameConstants.col_width*2,GameConstants.row_height*2);
+        RolltheDice.setPosition(GameConstants.centerX - QuestionEvent.getWidth()/2,GameConstants.centerY/1.2f + GameConstants.row_height);
+        //number ausgeben in dem Label
+
+        stage.addActor(RolltheDice);
+
         Button oddNumber = new TextButton("ungerade Zahl",mySkin,"default");
         oddNumber.setSize(GameConstants.col_width*2,GameConstants.row_height);
         oddNumber.setPosition(GameConstants.centerX - oddNumber.getWidth()/2,GameConstants.centerY/1.9f + GameConstants.row_height);
         oddNumber.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                //game.gotoGameScreen();
-                //Man müsste dann wieder zum GameScreen zurück
+                do {
+                    number = number % 2;
+                }while(number>1);
+
+                if(number==1){
+                    //game.gotoGameScreen();
+                    //Man müsste dann wieder zum GameScreen zurück und den Spieler nun um ein 4 Felder nach vor bringen
+                }else{
+                    //game.gotoGameScreen
+                }
                 return true;
             }
 
@@ -64,8 +89,16 @@ public class EventfieldScreen implements Screen {
         evenNumber.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                //game.gotoGameScreen();
-                //Man müsste dann wieder zum GameScreen zurück
+                do {
+                    number = number % 2;
+                }while(number>1);
+
+                if(number==0){
+                    //game.gotoGameScreen();
+                    //Man müsste dann wieder zum GameScreen zurück und den Spieler nun um ein 4 Felder nach vor bringen
+                }else{
+                    //game.gotoGameScreen
+                }
                 return true;
             }
 

@@ -44,7 +44,6 @@ public class ServerScreen implements Screen {
         progressDialog.setTitle("Laden");
         progressDialog.setMessage("Bitte warten bis der Gegner beigetreten ist...");
 
-        //Jasmin
         Label LnameServer = new Label("Bitte Namen eingeben:",mySkin,"big");
         LnameServer.setSize(GameConstants.col_width*2,GameConstants.row_height*2);
         LnameServer.setPosition(GameConstants.centerX - LnameServer.getWidth()/2,GameConstants.centerY + GameConstants.row_height);
@@ -115,7 +114,7 @@ public class ServerScreen implements Screen {
         homeBtn.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                game.gotoEventfieldScreen(); //MenuScreen
+                game.gotoMenuScreen(); //MenuScreen
                 return true;
             }
 
