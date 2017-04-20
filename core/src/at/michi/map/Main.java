@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import at.michi.map.managers.MyAssetManager;
+import at.michi.map.screens.EventfieldScreen;
 import at.michi.map.screens.ServerScreen;
 import at.michi.map.screens.MenuScreen;
 import at.michi.map.screens.GameScreen;
@@ -65,6 +66,12 @@ public class Main extends Game {
 	public void gotoGameScreen(Object object, String servername, String clientname){
 		GameScreen gameScreen = new GameScreen(this, object, servername, clientname);
 		setScreen(gameScreen);
+	}
+
+	//darauf muss dann verwiesen werden, wenn jemand auf das Ereignisfeld kommt
+	public void gotoEventfieldScreen(){
+		EventfieldScreen eventfieldScreen = new EventfieldScreen(this);
+		setScreen(eventfieldScreen);
 	}
 
 	@Override

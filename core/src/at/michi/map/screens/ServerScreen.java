@@ -115,7 +115,7 @@ public class ServerScreen implements Screen {
         homeBtn.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                game.gotoMenuScreen();
+                game.gotoEventfieldScreen(); //MenuScreen
                 return true;
             }
 
